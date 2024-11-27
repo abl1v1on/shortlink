@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from .forms import LoginUserForm, RegisterUserForm
+from .models import Profile
 
 
 class LoginUserView(LoginView):
@@ -30,4 +31,5 @@ class RegisterUserView(CreateView):
         user = form.save(commit=False)
         user.set_password(form.cleaned_data['password'])
         user.save()
+        Profile.objects.create(user=user)
         return super().form_valid(form)
