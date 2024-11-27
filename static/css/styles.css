@@ -1,52 +1,59 @@
 body {
     background-color: #212529;
     color: #f8f9fa;
-  }
-  .header {
-    background-color: #343a40;
-    color: white;
-    padding: 15px 0;
-  }
-  .header .navbar-brand {
-    font-weight: bold;
-  }
-  .auth-container {
-    max-width: 400px;
-    margin: 50px auto;
-  }
-  .card {
-    border-radius: 10px;
-    background-color: #495057;
-  }
-  .btn-custom {
-    background-color: #007bff;
-    color: white;
-  }
-  .btn-custom:hover {
-    background-color: #0056b3;
-  }
-  .footer {
-    background-color: #343a40;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-  }
-  .form-label {
-    color: #f8f9fa;
-  }
-  .form-control {
-    background-color: #6c757d;
-    color: #f8f9fa;
-    border: 1px solid #495057;
-  }
-  .form-control:focus {
-    background-color: #495057;
-    color: #f8f9fa;
-    border-color: #007bff;
-  }
-  .form-check-label {
-    color: #f8f9fa;
-  }
+}
+.header {
+  background-color: #343a40;
+  color: white;
+  padding: 15px 0;
+}
+.header .navbar-brand {
+  font-weight: bold;
+}
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+}
+.card {
+  border-radius: 10px;
+  background-color: #495057;
+}
+.btn-custom {
+  background-color: #007bff;
+  color: white;
+}
+.btn-custom:hover {
+  background-color: #0056b3;
+}
+.footer {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.form-label {
+  color: #f8f9fa;
+}
+.form-control {
+  background-color: #6c757d;
+  color: #f8f9fa;
+  border: 1px solid #495057;
+}
+.form-control:focus {
+  background-color: #495057;
+  color: #f8f9fa;
+  border-color: #007bff;
+}
+.form-check-label {
+  color: #f8f9fa;
+}
+.form-control::placeholder {
+  color: rgb(190, 190, 190);
+}
+.field-error {
+  color: red;
+  text-decoration: none;
+}
