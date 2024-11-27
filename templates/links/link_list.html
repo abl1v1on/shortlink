@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-3 col-lg-2 sidebar">
+      <h4>Навигация</h4>
+      <a href="#">Создать ссылку</a>
+      <a href="#">Мои ссылки</a>
+      <a href="#">Профиль</a>
+      <a href="#">Выход</a>
+    </nav>
+    
+    <main class="col-md-9 col-lg-10 content">
+      <h2>Мои ссылки</h2>
+      <div class="link-card">
+        <p><strong>Исходная ссылка:</strong></p>
+        <p>https://example.com/long-url-that-is-very-long</p>
+        <p><strong>Сокращённая ссылка:</strong> 
+          <a href="https://short.ly/abc123" class="short-link">https://short.ly/abc123</a>
+        </p>
+        <p><strong>Дата создания:</strong> 2024-11-28</p>
+        <p><strong>Теги:</strong> 
+          <span class="tag">тег1</span>
+          <span class="tag">тег2</span>
+        </p>
+      </div>
+
+      <div class="link-card">
+        <p><strong>Исходная ссылка:</strong></p>
+        <p>https://example.com/another-long-url</p>
+        <p><strong>Сокращённая ссылка:</strong> 
+          <a href="https://short.ly/xyz456" class="short-link">https://short.ly/xyz456</a>
+        </p>
+        <p><strong>Дата создания:</strong> 2024-11-27</p>
+        <p><strong>Теги:</strong> 
+          <span class="tag">пример</span>
+          <span class="tag">demo</span>
+        </p>
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}
