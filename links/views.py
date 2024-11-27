@@ -3,6 +3,7 @@ from django.views.generic import ListView, CreateView
 from django.db.models import QuerySet
 
 from .models import Link
+from .forms import CreateLinkForm
 
 
 class UserLinksListView(ListView):
@@ -18,4 +19,11 @@ class UserLinksListView(ListView):
         return Link.objects.filter(user=user)
 
 
-class CreateLinkView(CreateView): pass
+class CreateLinkView(CreateView):
+    template_name = 'links/create-link.html'
+    form_class = CreateLinkForm
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Создать ссылку'
+        return context

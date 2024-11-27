@@ -8,7 +8,7 @@ class Link(models.Model):
     redirects_count = models.PositiveIntegerField('Кол-во переходов', default=0)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='links')
     date_created = models.DateField(auto_now_add=True, editable=False)
-    tags = models.ManyToManyField('Tag', related_name='links')
+    tags = models.ManyToManyField('Tag', related_name='links', verbose_name='Теги')
 
     class Meta:
         db_table = 'links'
