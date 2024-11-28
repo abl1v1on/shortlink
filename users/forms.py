@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 
+from .models import Profile
+
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(
@@ -49,3 +51,15 @@ class RegisterUserForm(forms.ModelForm):
         for _, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = f'Введите {field.label}'.capitalize()
+
+
+class CreateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['picture', 'description']
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        for _, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
