@@ -1,6 +1,8 @@
 from typing import Any
+from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import ListView, CreateView
+from django.views import View
+from django.views.generic import ListView, CreateView, DeleteView
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.http.request import HttpRequest
 from django.db.models import QuerySet
@@ -39,6 +41,20 @@ class CreateLinkView(LoginRequiredMixin, CreateView):
         link.short_link = utils.gen_short_link()
         link.user = self.request.user
         link.save()
+        return redirect('links:user_links_list')
+
+
+class DeleteUserLinkView(LoginRequiredMixin, View):
+    """
+    Юзаем View а не DeleteView так как нам не нужна
+    страница подтверждения удаления
+    """
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        link = get_object_or_404(Link, pk=kwargs['link_id'])
+
+        if link.user == request.user:
+            link.delete()
+
         return redirect('links:user_links_list')
 
 

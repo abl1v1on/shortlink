@@ -19,13 +19,17 @@
         </p>
         <p><strong>Количество переходов:</strong> {{ link.redirects_count }}</p>
         <p><strong>Дата создания:</strong> {{ link.date_created }}</p>
-        <p><strong>Теги:</strong>
+        {% if link.tags.all %}
+          <p><strong>Теги:</strong>
           {% for tag in link.tags.all %}
-          <span class="tag">тег</span>
-          {% empty %}
-          Теги отсутствуют
-          {% endfor %}
-        </p>
+            <span class="tag me-2">{{ tag.name }}</span>
+            {% endfor %}
+          </p>
+        {% endif %}
+        <form action="{% url "links:delete_link" link_id=link.pk %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger mt-4">Удалить</button>
+        </form>
       </div>
       {% empty %}
       <h3>Вы не создали ни одной ссылки, вы можете сделать это на странице <a href="{% url "links:create_link" %}" class="short-link">создания ссылок</a></h3>
