@@ -57,6 +57,21 @@ class DeleteUserLinkView(LoginRequiredMixin, View):
         return redirect('links:user_links_list')
 
 
+class TopUserLinksView(ListView):
+    template_name = 'links/top_links.html'
+    context_object_name = 'links'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)    
+        context['title'] = 'Топ 10 ссылок'
+        return context
+
+    def get_queryset(self) -> QuerySet[Link]:
+        return Link.objects.order_by('-redirects_count') \
+            .select_related('user') \
+            .prefetch_related('tags')[:10]
+
+
 def redirect_to_link(request: HttpRequest, short_link: str) -> HttpResponseRedirect:
     link = get_object_or_404(Link, short_link=short_link)
     link.redirects_count += 1

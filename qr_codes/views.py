@@ -48,10 +48,6 @@ class CreateQRCodeView(LoginRequiredMixin, CreateView):
 
 
 class DeleteUserQRCodeView(LoginRequiredMixin, View):
-    """
-    Юзаем View а не DeleteView так как нам не нужна
-    страница подтверждения удаления
-    """
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         qr = get_object_or_404(QRCode, pk=kwargs['qr_id'])
 
