@@ -15,7 +15,7 @@ class QRCode(models.Model):
         verbose_name='Теги', 
         blank=True, 
     )
-    qr_code_image = models.ImageField('QR', upload_to='qr_codes/')
+    qr_code_image = models.ImageField('QR', upload_to='qr_codes/', max_length=300)
 
     class Meta:
         db_table = 'qr_codes'

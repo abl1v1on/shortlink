@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    {% include "components/sidebar.html" %}
+    <main class="col-md-9 col-lg-10 content">
+      <h2>Мои QR коды</h2>
+      {% for qr in qr_codes %}
+      <div class="link-card">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <p><strong>Исходная ссылка: </strong><a href="{{ qr.source_link }}" class="short-link" target="_blank">{{ qr.source_link }}</a></p>
+            <p><strong>Дата создания:</strong> {{ qr.date_created }}</p>
+            {% if qr.tags.all %}
+              <p><strong>Теги:</strong>
+              {% for tag in qr.tags.all %}
+                <span class="tag me-2">{{ tag.name }}</span>
+                {% endfor %}
+              </p>
+            {% endif %}
+            <form action="" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger mt-4">Удалить</button>
+            </form>
+          </div>
+          <div>
+            <img width="200" src="{{ qr.qr_code_image.url }}" alt="{{ qr.source_link }}">
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <h3>Вы не создали ни один QR, вы можете сделать это на странице <a href="{% url "qr_codes:create_qr_code" %}" class="short-link">создания QR кода</a></h3>
+      {% endfor %}
+    </main>
+  </div>
+</div>
+{% endblock %}
