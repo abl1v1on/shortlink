@@ -1,8 +1,7 @@
 from typing import Any
-from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 from django.views import View
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.http.request import HttpRequest
 from django.db.models import QuerySet
@@ -24,7 +23,7 @@ class UserLinksListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self) -> QuerySet[Link]:
         user = self.request.user
-        return Link.objects.filter(user=user).prefetch_related('tags')
+        return user.links.all().prefetch_related('tags')
 
 
 class CreateLinkView(LoginRequiredMixin, CreateView):
