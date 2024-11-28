@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 
 class Link(models.Model):
@@ -8,10 +9,18 @@ class Link(models.Model):
     redirects_count = models.PositiveIntegerField('Кол-во переходов', default=0)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='links')
     date_created = models.DateField(auto_now_add=True, editable=False)
-    tags = models.ManyToManyField('Tag', related_name='links', verbose_name='Теги')
+    tags = models.ManyToManyField(
+        'Tag', 
+        related_name='links', 
+        verbose_name='Теги', 
+        blank=True, 
+    )
 
     class Meta:
         db_table = 'links'
+
+    def get_absolute_url(self):
+        return reverse('links:redirect_to_link', kwargs={'short_link': self.short_link})
 
     def __str__(self) -> str:
         return self.source_link

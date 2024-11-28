@@ -12,14 +12,15 @@
       <a href="#">Профиль</a>
       <a href="#">Выход</a>
     </nav>
-    
+
     <main class="col-md-9 col-lg-10 content">
       <h2>Мои ссылки</h2>
+      {% for link in links %}
       <div class="link-card">
         <p><strong>Исходная ссылка:</strong></p>
-        <p>https://example.com/long-url-that-is-very-long</p>
+        <p>{{ link.source_link }}</p>
         <p><strong>Сокращённая ссылка:</strong> 
-          <a href="https://short.ly/abc123" class="short-link">https://short.ly/abc123</a>
+          <a href="{{ link.get_absolute_url }}" class="short-link">{{ link.get_absolute_url }}</a>
         </p>
         <p><strong>Дата создания:</strong> 2024-11-28</p>
         <p><strong>Теги:</strong> 
@@ -27,19 +28,7 @@
           <span class="tag">тег2</span>
         </p>
       </div>
-
-      <div class="link-card">
-        <p><strong>Исходная ссылка:</strong></p>
-        <p>https://example.com/another-long-url</p>
-        <p><strong>Сокращённая ссылка:</strong> 
-          <a href="https://short.ly/xyz456" class="short-link">https://short.ly/xyz456</a>
-        </p>
-        <p><strong>Дата создания:</strong> 2024-11-27</p>
-        <p><strong>Теги:</strong> 
-          <span class="tag">пример</span>
-          <span class="tag">demo</span>
-        </p>
-      </div>
+      {% endfor %}
     </main>
   </div>
 </div>
