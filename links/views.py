@@ -22,7 +22,7 @@ class UserLinksListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self) -> QuerySet[Link]:
         user = self.request.user
-        return Link.objects.filter(user=user)
+        return Link.objects.filter(user=user).prefetch_related('tags')
 
 
 class CreateLinkView(LoginRequiredMixin, CreateView):

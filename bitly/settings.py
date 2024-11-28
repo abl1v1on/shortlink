@@ -12,6 +12,7 @@ SECRET_KEY = 'django-insecure-i8v9pbkvq@-+6r+a(t*^(*h_t+u+m1(k=)%$!!yobv&^2f37g4
 DEBUG = True
 
 ALLOWED_HOSTS = []
+INTERNAL_IPS = ['127.0.0.1']
 
 
 INSTALLED_APPS = [
@@ -21,6 +22,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'debug_toolbar',
 
     'links',
     'users',
@@ -34,6 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'bitly.urls'
