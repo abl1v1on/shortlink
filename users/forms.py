@@ -58,6 +58,14 @@ class CreateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['picture', 'description']
 
+    def clean_picture(self):
+        pic = self.cleaned_data['picture']
+        max_size = 1024 * 1024
+
+        if pic.size > max_size:
+            raise forms.ValidationError('Максимальный размер аватара 1Мб')
+        return pic
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
