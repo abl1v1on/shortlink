@@ -1,7 +1,11 @@
 from typing import Any
 from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse
+from django.contrib.auth import logout
 
 from .forms import LoginUserForm, RegisterUserForm
 from .models import Profile
@@ -33,3 +37,8 @@ class RegisterUserView(CreateView):
         user.save()
         Profile.objects.create(user=user)
         return super().form_valid(form)
+
+
+def logout_user(request: HttpRequest) -> HttpResponse:
+    logout(request)
+    return redirect('users:login')

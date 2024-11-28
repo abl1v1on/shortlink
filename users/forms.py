@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class LoginUserForm(AuthenticationForm):
@@ -48,5 +48,4 @@ class RegisterUserForm(forms.ModelForm):
 
         for _, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
-
             field.widget.attrs['placeholder'] = f'Введите {field.label}'.capitalize()
