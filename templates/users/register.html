@@ -20,7 +20,7 @@
           {% endfor %}
           <button type="submit" class="btn btn-custom w-100">Зарегистрироваться</button>
           <div class="mt-3 text-center">
-            <p>Уже есть аккаунт? <a href="#" class="text-light">Войти</a></p>
+            <p>Уже есть аккаунт? <a href="{% url "users:login" %}" class="text-light">Войти</a></p>
           </div>
         </form>
       </div>
