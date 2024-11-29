@@ -17,7 +17,7 @@
             <p><strong>Исходная ссылка: </strong><a href="{{ qr.source_link }}" class="short-link" target="_blank">{{ qr.source_link }}</a></p>
             <p><strong>Дата создания:</strong> {{ qr.date_created }}</p>
             {% if qr.tags.all %}
-              <p><strong>Теги:</strong>
+            <p><strong>Теги:</strong>
               {% for tag in qr.tags.all %}
                 <span class="tag me-2">{{ tag.name }}</span>
                 {% endfor %}
@@ -29,7 +29,7 @@
             </form>
           </div>
           <div>
-            <img width="200" src="{{ qr.qr_code_image.url }}" alt="{{ qr.source_link }}">
+            <img id="qr-code" width="200" class="qr-code" src="{{ qr.qr_code_image.url }}" alt="{{ qr.source_link }}">
           </div>
         </div>
       </div>
@@ -39,4 +39,12 @@
     </main>
   </div>
 </div>
+
+<div class="overlay" id="overlay">
+  <img id="overlay-image" src="" alt="QR Code">
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static "js/qr_code.js" %}"></script>
 {% endblock %}
