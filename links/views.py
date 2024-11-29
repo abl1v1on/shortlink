@@ -57,7 +57,7 @@ class DeleteUserLinkView(LoginRequiredMixin, View):
         return redirect('links:user_links_list')
 
 
-class TopUserLinksView(ListView):
+class TopUserLinksView(LoginRequiredMixin, ListView):
     template_name = 'links/top_links.html'
     context_object_name = 'links'
 
