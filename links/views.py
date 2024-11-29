@@ -40,6 +40,7 @@ class CreateLinkView(LoginRequiredMixin, CreateView):
         link.short_link = utils.gen_short_link()
         link.user = self.request.user
         link.save()
+        form.save_m2m()
         return redirect('links:user_links_list')
 
 

@@ -16,7 +16,7 @@ class CreateQRCodeForm(forms.ModelForm):
             ),
             'tags': forms.SelectMultiple(
                 attrs={
-                    'class': 'form-control'
+                    'class': 'form-control choices'
                 }
             )
         }
