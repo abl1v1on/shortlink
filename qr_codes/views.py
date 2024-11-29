@@ -44,6 +44,7 @@ class CreateQRCodeView(LoginRequiredMixin, CreateView):
         qr.user = user
         qr.qr_code_image = qr_code_path
         qr.save()
+        form.save_m2m() # Для того чтобы сохранялись теги
         return redirect('qr_codes:user_qr_codes_list')
 
 
