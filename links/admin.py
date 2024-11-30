@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Link, Tag
+from .models import Link, Tag, Award
 
 
 @admin.register(Link)
@@ -14,3 +14,8 @@ class LinkAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug': ('name', )}
+
+
+@admin.register(Award)
+class AwardAdmin(admin.ModelAdmin):
+    list_display = ['name']
