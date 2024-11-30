@@ -39,11 +39,14 @@ class Tag(models.Model):
 
 class Award(models.Model):    
     name = models.CharField('Название', max_length=70, unique=True)
-    icon = models.ImageField('Иконка')
+    icon = models.ImageField('Иконка', upload_to='awards')
     user = models.ManyToManyField(get_user_model(), through='UserAward', related_name='awards')
 
     class Meta:
         db_table = 'awards'
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class UserAward(models.Model):
