@@ -11,7 +11,7 @@ from django.http.request import HttpRequest
 
 from .models import QRCode
 from .forms import CreateQRCodeForm
-from .utils import create_qr
+from .tasks import create_qr_task
 
 
 class UserQRCodesListView(LoginRequiredMixin, ListView):
@@ -40,11 +40,15 @@ class CreateQRCodeView(LoginRequiredMixin, CreateView):
     def form_valid(self, form: CreateQRCodeForm) -> HttpResponse:
         qr: QRCode = form.save(commit=False)
         user = self.request.user
-        qr_code_path = create_qr(qr.source_link, str(uuid4()))
+        unique_id = str(uuid4())
+
+        qr_code_path = f'qr_codes/{unique_id}.jpg'
         qr.user = user
         qr.qr_code_image = qr_code_path
         qr.save()
-        form.save_m2m() # Для того чтобы сохранялись теги
+        form.save_m2m()
+
+        create_qr_task.delay(qr.source_link, unique_id)
         return redirect('qr_codes:user_qr_codes_list')
 
 
