@@ -57,8 +57,6 @@ class DeleteUserQRCodeView(LoginRequiredMixin, View):
         qr = get_object_or_404(QRCode, pk=kwargs['qr_id'])
 
         if qr.user == request.user:
-            if qr.qr_code_image and os.path.exists(qr.qr_code_image.path):
-                qr.qr_code_image.delete(save=False)
             qr.delete()
 
         return redirect('qr_codes:user_qr_codes_list')
