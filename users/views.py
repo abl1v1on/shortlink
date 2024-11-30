@@ -5,7 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
-from django.contrib.auth import logout, get_user_model
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
 
 from .forms import LoginUserForm, RegisterUserForm, CreateProfileForm
 from .models import Profile
@@ -32,11 +33,10 @@ class RegisterUserView(CreateView):
         return context
 
     def form_valid(self, form: RegisterUserForm):
-        user = form.save(commit=False)
+        user: User = form.save(commit=False)
         user.set_password(form.cleaned_data['password'])
         user.save()
-        profile = Profile.objects.create(user=user)
-        self.request.session['profile_id'] = profile.pk
+        self.request.session['profile_id'] = user.profile.pk
         return redirect('users:register_profile')
 
 
