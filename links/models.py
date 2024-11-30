@@ -35,3 +35,21 @@ class Tag(models.Model):
     
     def __str__(self) -> str:
         return self.name
+
+
+class Award(models.Model):    
+    name = models.CharField('Название', max_length=70, unique=True)
+    icon = models.ImageField('Иконка')
+    user = models.ManyToManyField(get_user_model(), through='UserAward', related_name='awards')
+
+    class Meta:
+        db_table = 'awards'
+
+
+class UserAward(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    award = models.ForeignKey(Award, on_delete=models.CASCADE)
+    date_of_assignment = models.DateField('Дата присвоения', auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'award')
