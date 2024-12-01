@@ -40,6 +40,7 @@ class Tag(models.Model):
 class Award(models.Model):    
     name = models.CharField('Название', max_length=70, unique=True)
     icon = models.ImageField('Иконка', upload_to='awards')
+    redirects_count = models.PositiveIntegerField('Кол-во переходов для награды')
     user = models.ManyToManyField(get_user_model(), through='UserAward', related_name='awards')
 
     class Meta:
@@ -55,4 +56,5 @@ class UserAward(models.Model):
     date_of_assignment = models.DateField('Дата присвоения', auto_now_add=True)
 
     class Meta:
+        db_table = 'users_awards'
         unique_together = ('user', 'award')
