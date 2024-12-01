@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import utils
 from .models import Link
 from .forms import CreateLinkForm
+from .filters import UserLinkListFilter
 
 
 class UserLinksListView(LoginRequiredMixin, ListView):
@@ -19,11 +20,15 @@ class UserLinksListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['title'] = 'Мои ссылки'
+        context['filter_form'] = self.get_filter().form
         return context
 
     def get_queryset(self) -> QuerySet[Link]:
+        return self.get_filter().qs
+
+    def get_filter(self) -> UserLinkListFilter:
         user = self.request.user
-        return user.links.all().prefetch_related('tags', 'awards')
+        return UserLinkListFilter(self.request.GET, utils.get_user_links(user))
 
 
 class CreateLinkView(LoginRequiredMixin, CreateView):

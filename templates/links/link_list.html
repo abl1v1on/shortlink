@@ -9,6 +9,12 @@
     
     <main class="col-md-9 col-lg-10 content">
       <h2>Мои ссылки</h2>
+      {% if links %}
+        <form method="get">
+          {{ filter_form.as_div }}
+          <input type="submit" value="Найти" class="btn btn-dark"/>
+        </form>
+      {% endif %}
       {% for link in links %}
       <div class="link-card">
         <p><strong>Исходная ссылка: </strong><a href="{{ link.source_link }}" class="short-link" target="_blank">{{ link.source_link }}</a></p>
