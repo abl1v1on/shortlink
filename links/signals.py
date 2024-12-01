@@ -20,7 +20,7 @@ def email_notification(sender, instance: Link, created, **kwargs) -> None:
             if redirects_count % 100 == 0:
                 try:
                     award = Award.objects.get(redirects_count=redirects_count)
-                    UserAward.objects.create(user=instance.user, award=award)
+                    UserAward.objects.create(user=instance.user, link=instance, award=award)
                 except Award.DoesNotExist:
                     pass
         delattr(instance, '_original_redirects_count')

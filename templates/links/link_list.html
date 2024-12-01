@@ -19,6 +19,11 @@
         </p>
         <p><strong>Количество переходов:</strong> {{ link.redirects_count }}</p>
         <p><strong>Дата создания:</strong> {{ link.date_created }}</p>
+        {% if link.awards.all %}
+          {% for award in link.awards.all %}
+            <img width="30" src="{{ award.award.icon.url }}" alt="{{ award }}" title="{{ award }}"/>
+          {% endfor %}
+        {% endif %}
         {% if link.tags.all %}
           <p><strong>Теги:</strong>
           {% for tag in link.tags.all %}

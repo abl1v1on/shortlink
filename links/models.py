@@ -18,6 +18,7 @@ class Link(models.Model):
 
     class Meta:
         db_table = 'links'
+        ordering = ['-redirects_count']
 
     def get_absolute_url(self):
         return reverse('links:redirect_to_link', kwargs={'short_link': self.short_link})
@@ -52,9 +53,13 @@ class Award(models.Model):
 
 class UserAward(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name='awards')
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
     date_of_assignment = models.DateField('Дата присвоения', auto_now_add=True)
 
     class Meta:
         db_table = 'users_awards'
-        unique_together = ('user', 'award')
+        unique_together = ('user', 'award', 'link')
+
+    def __str__(self) -> str:
+        return self.award.name
