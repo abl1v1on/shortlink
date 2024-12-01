@@ -14,7 +14,7 @@ async def send(short_link: str) -> None:
 async def main(redirects_count: int, short_link: str) -> None:
     status_code = await send(short_link)
 
-    if status_code != 200:
+    if status_code == 404:
         print('Short link is invalid')
         return
 
