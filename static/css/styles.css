@@ -183,23 +183,24 @@ h2 {
   visibility: visible;
   opacity: 1;
 }
-/* Специфичный селектор для .choices внутри формы */
+
 form .choices__item {
-  color: #333; /* Цвет текста */
+  color: #333;
 }
 
-/* Для выделенных тегов */
 form .choices__item--highlighted {
-  background-color: #007bff; /* Цвет фона при наведении */
-  color: white; /* Белый цвет текста на выделенном фоне */
+  background-color: #007bff;
+  color: white;
 }
 
-/* Для цвета текста в поле поиска */
 form .choices__input {
-  color: #333; /* Цвет текста */
+  color: #333;
 }
 
-/* Для выпадающего списка тегов */
 form .choices__list--dropdown .choices__item {
-  color: #333; /* Цвет текста */
+  color: #333;
+}
+
+.awards {
+  margin-top: 15px;
 }

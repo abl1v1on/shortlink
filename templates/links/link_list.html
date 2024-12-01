@@ -19,17 +19,19 @@
         </p>
         <p><strong>Количество переходов:</strong> {{ link.redirects_count }}</p>
         <p><strong>Дата создания:</strong> {{ link.date_created }}</p>
-        {% if link.awards.all %}
-          {% for award in link.awards.all %}
-            <img width="30" src="{{ award.award.icon.url }}" alt="{{ award }}" title="{{ award }}"/>
-          {% endfor %}
-        {% endif %}
         {% if link.tags.all %}
-          <p><strong>Теги:</strong>
+        <p><strong>Теги:</strong>
           {% for tag in link.tags.all %}
-            <span class="tag me-2">{{ tag.name }}</span>
+          <span class="tag me-2">{{ tag.name }}</span>
+          {% endfor %}
+        </p>
+        {% endif %}
+        {% if link.awards.all %}
+          <div class="awards">
+            {% for award in link.awards.all %}
+              <img width="30" src="{{ award.award.icon.url }}" alt="{{ award }}" title="{{ award }}"/>
             {% endfor %}
-          </p>
+          </div>
         {% endif %}
         <form action="{% url "links:delete_link" link_id=link.pk %}" method="post">
           {% csrf_token %}
