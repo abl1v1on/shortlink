@@ -29,7 +29,7 @@
         {% if link.awards.all %}
           <div class="awards">
             {% for award in link.awards.all %}
-              <img width="30" src="{{ award.award.icon.url }}" alt="{{ award }}" title="{{ award }}"/>
+              <img width="30" src="{{ award.icon.url }}" alt="{{ award }}" title="{{ award }}"/>
             {% endfor %}
           </div>
         {% endif %}

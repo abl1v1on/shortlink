@@ -42,7 +42,7 @@ class Award(models.Model):
     name = models.CharField('Название', max_length=70, unique=True)
     icon = models.ImageField('Иконка', upload_to='awards')
     redirects_count = models.PositiveIntegerField('Кол-во переходов для награды')
-    user = models.ManyToManyField(get_user_model(), through='UserAward', related_name='awards')
+    link = models.ManyToManyField(Link, through='LinkAward', related_name='awards')
 
     class Meta:
         db_table = 'awards'
@@ -51,15 +51,14 @@ class Award(models.Model):
         return self.name
 
 
-class UserAward(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name='awards')
+class LinkAward(models.Model):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
     date_of_assignment = models.DateField('Дата присвоения', auto_now_add=True)
 
     class Meta:
-        db_table = 'users_awards'
-        unique_together = ('user', 'award', 'link')
+        db_table = 'links_awards'
+        unique_together = ('award', 'link')
 
     def __str__(self) -> str:
         return self.award.name
