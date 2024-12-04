@@ -2,6 +2,8 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% load links_tags %}
+
 {% block content %}
 <div class="container-fluid">
   <div class="row">
@@ -15,36 +17,11 @@
           <input type="submit" value="Найти" class="btn btn-dark"/>
         </form>
       {% endif %}
-      {% for link in links %}
-      <div class="link-card">
-        <p><strong>Исходная ссылка: </strong><a href="{{ link.source_link }}" class="short-link" target="_blank">{{ link.source_link }}</a></p>
-        <p><strong>Сокращённая ссылка:</strong> 
-          <a href="{{ link.get_absolute_url }}" class="short-link" target="_blank">{{ link.get_absolute_url }}</a>
-        </p>
-        <p><strong>Количество переходов:</strong> {{ link.redirects_count }}</p>
-        <p><strong>Дата создания:</strong> {{ link.date_created }}</p>
-        {% if link.tags.all %}
-        <p><strong>Теги:</strong>
-          {% for tag in link.tags.all %}
-          <span class="tag me-2">{{ tag.name }}</span>
-          {% endfor %}
-        </p>
-        {% endif %}
-        {% if link.awards.all %}
-          <div class="awards">
-            {% for award in link.awards.all %}
-              <img width="30" src="{{ award.icon.url }}" alt="{{ award }}" title="{{ award }}"/>
-            {% endfor %}
-          </div>
-        {% endif %}
-        <form action="{% url "links:delete_link" link_id=link.pk %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger mt-4">Удалить</button>
-        </form>
-      </div>
-      {% empty %}
-      <h3>Вы не создали ни одной ссылки, вы можете сделать это на странице <a href="{% url "links:create_link" %}" class="short-link">создания ссылок</a></h3>
-      {% endfor %}
+
+      {% show_link_list links=links is_user_links=True %}
+      {% if not links %}
+        <h3>Вы не создали ни одной ссылки, вы можете сделать это на странице <a href="{% url "links:create_link" %}" class="short-link">создания ссылок</a></h3>
+      {% endif %}
     </main>
   </div>
 </div>
