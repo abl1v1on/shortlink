@@ -11,10 +11,24 @@ services:
       - .env
     depends_on:
       - db
+      - redis
+
+  celery:
+    build: .
+    command: ["celery", "-A", "bitly", "worker", "-l", "info"]
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - redis
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "16379:6379"
 
   db:
     image: postgres:15
-    container_name: postgres_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:

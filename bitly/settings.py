@@ -111,7 +111,7 @@ LOGIN_REDIRECT_URL = 'links:user_links_list'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery settings
-CELERY_BROKER_URL = 'redis://localhost:16379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
