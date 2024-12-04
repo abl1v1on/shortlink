@@ -63,7 +63,6 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
-/* Header */
 .navbar {
   background-color: #1f1f1f;
   padding: 10px 20px;
@@ -93,7 +92,6 @@ body {
   background-color: #66d4ff;
 }
 
-/* Sidebar */
 .sidebar {
   background-color: #1f1f1f;
   min-height: 100vh;
@@ -115,7 +113,6 @@ body {
   background-color: #333333;
 }
 
-/* Content */
 .content {
   padding: 30px;
 }
