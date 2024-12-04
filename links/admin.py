@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Link, Tag, Award
+from .models import Link, Tag, Award, Complaint
 
 
 @admin.register(Link)
@@ -24,3 +24,8 @@ class AwardAdmin(admin.ModelAdmin):
     @admin.display(description='Иконка')
     def show_award(self, obj: Award):
         return mark_safe(f'<img width="30" src="{obj.icon.url}" alt="{obj.name}" />')
+
+
+@admin.register(Complaint)
+class ComplaintAdmin(admin.ModelAdmin):
+    list_display = ['short_link', 'description']

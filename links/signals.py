@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
-from .models import Link, Award, LinkAward
+from .models import Link, Award, LinkAward, Complaint
+from .tasks import send_telegram_message_task
 
 
 @receiver(pre_save, sender=Link)
@@ -24,3 +25,11 @@ def email_notification(sender, instance: Link, created, **kwargs) -> None:
                 except Award.DoesNotExist:
                     pass
         delattr(instance, '_original_redirects_count')
+
+
+@receiver(post_save, sender=Complaint)
+def telegram_notification(sender, instance: Complaint, created, **kwargs) -> None:
+    if created:
+        full_link = f'http://localhost:8000/{instance.short_link.strip('/')}/'
+        message = f'Новая жалоба\nСсылка: {full_link}\nОписание: {instance.description}'
+        send_telegram_message_task.delay(message)

@@ -62,3 +62,14 @@ class LinkAward(models.Model):
 
     def __str__(self) -> str:
         return self.award.name
+
+
+class Complaint(models.Model):
+    short_link = models.CharField('Короткая ссылка', max_length=100)
+    description = models.CharField('Описание жалобы', max_length=1000)
+
+    class Meta:
+        db_table = 'complaints'
+    
+    def __str__(self) -> str:
+        return self.short_link
