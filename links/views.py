@@ -1,5 +1,6 @@
 from typing import Any
 from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView
 from django.http.response import HttpResponse, HttpResponseRedirect
@@ -8,8 +9,8 @@ from django.db.models import QuerySet
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import utils
-from .models import Link
-from .forms import CreateLinkForm
+from .models import Link, Complaint
+from .forms import CreateLinkForm, CreateComplaintForm
 from .filters import UserLinkListFilter
 
 
@@ -76,6 +77,18 @@ class TopUserLinksView(LoginRequiredMixin, ListView):
         return Link.objects.order_by('-redirects_count') \
             .select_related('user') \
             .prefetch_related('tags')[:10]
+
+
+class CreateComplaintView(CreateView):
+    model = Complaint
+    template_name = 'links/create_complaint.html'
+    form_class = CreateComplaintForm
+    success_url = reverse_lazy('links:user_links_list')
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Оставить жалобу'
+        return context
 
 
 def redirect_to_link(request: HttpRequest, short_link: str) -> HttpResponseRedirect:

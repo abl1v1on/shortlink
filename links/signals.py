@@ -30,6 +30,9 @@ def email_notification(sender, instance: Link, created, **kwargs) -> None:
 @receiver(post_save, sender=Complaint)
 def telegram_notification(sender, instance: Complaint, created, **kwargs) -> None:
     if created:
-        full_link = f'http://localhost:8000/{instance.short_link.strip('/')}/'
-        message = f'Новая жалоба\nСсылка: {full_link}\nОписание: {instance.description}'
-        send_telegram_message_task.delay(message)
+        try:
+            full_link = f'http://localhost:8000/{instance.short_link.strip('/')}/'
+            message = f'Новая жалоба\nСсылка: {full_link}\nОписание: {instance.description}'
+            send_telegram_message_task.delay(message)
+        except:
+            pass
